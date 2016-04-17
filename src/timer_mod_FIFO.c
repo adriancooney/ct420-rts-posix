@@ -32,7 +32,7 @@ int main(int argc, char** argv)
   scheduler = sched_getscheduler(0); // 0 is shorthand for calling process ID
   prio = sched_getparam(getpid(), &my_sched_params);
   // printf("Scheduler is %d (0=TS, 1=FIFO, 2=RR) and priority is %d (sched_setscheduler returned %d)\n", scheduler, my_sched_params.sched_priority, j);
-  if (argc != 3)
+  if (argc < 3)
   {
     fprintf(stderr, "Usage: %s <sleep time..msec><num_iter>\n", argv[0]);
     exit(1);
