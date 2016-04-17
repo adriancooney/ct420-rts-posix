@@ -19,7 +19,7 @@ do
     ./out/timer_usleep $PARAMS yes > logs/fifo/log-${c}.csv &
 done
 
-cat logs/fifo/*.csv >> "logs/$NICE_LOG"
+cat logs/fifo/*.csv >> $NICE_LOG
 rm -r logs/fifo
 
 wait
