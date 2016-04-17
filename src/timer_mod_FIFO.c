@@ -59,8 +59,8 @@ int main(int argc, char** argv)
 
   if(argc == 4) {
     // Print the CSV 
-    // actual_time,expected_time,pid,niceness,delay,iterations
-    printf("%lf, %d, %d, %d, %d, %d\n", (stop - init) * 1000, num_iter*delay, pid, priority, delay, num_iter);
+    // actual_time,expected_time,pid,niceness,delay,iterations,scheduler
+    printf("%lf, %d, %d, %d, %d, %d, %d\n", (stop - init) * 1000, num_iter*delay, pid, priority, delay, num_iter, scheduler);
   }
 
 
