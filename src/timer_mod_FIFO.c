@@ -20,7 +20,7 @@ int main(int argc, char** argv)
   // Start
   // Set this process to highest priority FIFO
   my_sched_params.sched_priority = sched_get_priority_max(SCHED_FIFO);
-  printf("Max FIFO priority is %d \n", my_sched_params.sched_priority);
+  // printf("Max FIFO priority is %d \n", my_sched_params.sched_priority);
   j = sched_setscheduler(getpid(), SCHED_FIFO, &my_sched_params);
 
   // if(errno == EPERM) {
@@ -31,7 +31,7 @@ int main(int argc, char** argv)
   // Now check actual parameters
   scheduler = sched_getscheduler(0); // 0 is shorthand for calling process ID
   prio = sched_getparam(getpid(), &my_sched_params);
-  printf("Scheduler is %d (0=TS, 1=FIFO, 2=RR) and priority is %d (sched_setscheduler returned %d)\n", scheduler, my_sched_params.sched_priority, j);
+  // printf("Scheduler is %d (0=TS, 1=FIFO, 2=RR) and priority is %d (sched_setscheduler returned %d)\n", scheduler, my_sched_params.sched_priority, j);
   if (argc != 3)
   {
     fprintf(stderr, "Usage: %s <sleep time..msec><num_iter>\n", argv[0]);
@@ -43,7 +43,7 @@ int main(int argc, char** argv)
   num_iter = atoi(argv[2]);
   pid = getpid();
   priority = getpriority(PRIO_PROCESS, pid);
-  printf("Delay is %d..num_iter is %d\n", delay, num_iter);
+  // printf("Delay is %d..num_iter is %d\n", delay, num_iter);
   gettimeofday( &tv, &tz);
   init = tv.tv_sec + tv.tv_usec * 0.000001;
   for (i = 0; i < num_iter; ++i)
@@ -54,7 +54,7 @@ int main(int argc, char** argv)
     usleep(delay * 1000);
     gettimeofday( &tv, &tz);
     stop = tv.tv_sec + tv.tv_usec * 0.000001;
-    printf("Time is %ld : %ld..slept for %lf ms\n", tv.tv_sec, tv.tv_usec, (stop - start) * 1000);
+    // printf("Time is %ld : %ld..slept for %lf ms\n", tv.tv_sec, tv.tv_usec, (stop - start) * 1000);
   }
 
   if(argc == 4) {
