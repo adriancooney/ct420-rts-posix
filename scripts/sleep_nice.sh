@@ -1,25 +1,24 @@
 #!/bin/bash
 
-NOW=$(date +%Y%m%d%H%M%s.%N)
-NICENESS=10
-PARAMS="10 100"
-NICE_LOG="nice.log"
+PARAMS="2 1000"
 RUNS=500
+NICE_LOG="logs/nice-runs.csv"
 
-mkdir -p logs/run-${RUNS}
+mkdir -p logs
 
 echo "Running timer with $RUNS open process with parameters: $PARAMS"
-for (( c=1; c<=$RUNS; c++ ))
+echo "actual_time, expected_time, pid, niceness, delay, iterations" > $NICE_LOG
+for (( u=-20; u<=20; u++ ))
 do
-    ARGS=$PARAMS
-    if (( "$c" == 1 ))
-    then
-        ARGS+=" 1"
-    fi
+    for (( c=1; c<=$RUNS; c++ ))
+    do
+        if (( "$c" == 1 ))
+        then
+            nice -n $u ./out/timer_usleep $PARAMS yes >> $NICE_LOG &
+        fi
 
-    ./out/timer_usleep $ARGS > logs/run-${RUNS}/runs-${c}.csv &
+        ./out/timer_usleep $PARAMS &
+    done
+
+    wait
 done
-
-wait
-cat logs/run-${RUNS}/*.csv > logs/run-${RUNS}.csv
-rm -r logs/run-${RUNS}
